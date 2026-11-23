@@ -26,7 +26,13 @@ export function toKzt(amount: number, currency: Currency): number {
 }
 
 export function totalInKzt(expenses: Expense[]): number {
-  return expenses.reduce((total, expense) => total + toKzt(expense.amount, expense.currency), 0)
+  return expenses.reduce((sum, expense) => sum + toKzt(expense.amount, expense.currency), 0)
+}
+
+export function formatRatesNote(): string {
+  return CURRENCIES.filter((currency) => currency !== 'KZT')
+    .map((currency) => `1 ${currency} = ${RATES_TO_KZT[currency]} ₸`)
+    .join(' · ')
 }
 
 export function categoryTotals(expenses: Expense[]): CategoryTotal[] {
